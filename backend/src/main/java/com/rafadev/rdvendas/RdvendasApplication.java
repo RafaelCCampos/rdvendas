@@ -1,0 +1,13 @@
+package com.rafadev.rdvendas;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class RdvendasApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(RdvendasApplication.class, args);
+	}
+
+}
