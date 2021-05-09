@@ -1,5 +1,6 @@
 :root {
     --color-primary: #8B0008;
+    --color-secundary: #3b4f8a;
 }
 
 html, body {
@@ -28,4 +29,7 @@ html, body {
 
 .text-primary {
     color: var(--color-primary) !important;
+}
+.text-secondary {
+    color: var(--color-secundary) !important;
 }
