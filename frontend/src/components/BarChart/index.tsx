@@ -1,4 +1,7 @@
+import { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
+import api from 'services/api';
+import { SaleSuccess } from 'types/sale';
 
 const BarChart = () => {
 
@@ -10,21 +13,56 @@ const BarChart = () => {
         },
     };
     
-    const mockData = {
+    type SeriesData = {
+        name: string,
+        data: number[],
+    }
+
+    type BarChart = {
         labels: {
-            categories: ['Anakin', 'Barry Allen', 'Kal-El', 'Logan', 'Padmé']
+            categories: string[],
+        },
+        series: SeriesData[],
+    }
+
+    const [ chartData, setChartData ] = useState<BarChart>({
+        labels: {
+            categories: [],
         },
         series: [
             {
-                name: "% Sucesso",
-                data: [43.6, 67.1, 67.7, 45.6, 71.1]                   
+                name: '',
+                data: [],                  
             }
         ]
-    };
+    })
+
+    useEffect(() => {
+        api.get('/sales/success-by-seller')
+            .then(response => {
+                const data: SaleSuccess[] = response.data
+                const myLabels = data.map(x => x.sellerName)
+                const mySeries = data.map(x => Number(((x.deals/x.visited)* 100).toFixed(2)))
+                console.log('series', mySeries)
+                setChartData({
+                    labels: {
+                        categories: myLabels,
+                    },
+                    series: [
+                        {
+                            name: '% Sucesso',
+                            data: mySeries,                  
+                        }
+                    ],
+                })
+            })
+        }, []
+    );
+
     return (
         <Chart
-            options={{...options, xaxis: mockData.labels}}
-            series={mockData.series}
+            options={{...options, xaxis: chartData.labels}}
+            series={chartData.series}
             type="bar"
             height="240"
         />
