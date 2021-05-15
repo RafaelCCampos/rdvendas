@@ -43,7 +43,6 @@ const BarChart = () => {
                 const data: SaleSuccess[] = response.data
                 const myLabels = data.map(x => x.sellerName)
                 const mySeries = data.map(x => Number(((x.deals/x.visited)* 100).toFixed(2)))
-                console.log('series', mySeries)
                 setChartData({
                     labels: {
                         categories: myLabels,
@@ -56,8 +55,7 @@ const BarChart = () => {
                     ],
                 })
             })
-        }, []
-    );
+    }, []);
 
     return (
         <Chart
