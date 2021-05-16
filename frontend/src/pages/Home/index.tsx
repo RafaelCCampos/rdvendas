@@ -6,7 +6,7 @@ const Home = () => {
     return (
         <>
             <NavBar/>
-            <div className="container">
+            <div className="d-flex justify-content-center my-auto">
                 <div className="jumbotron">
                     <h1 className="display-4">DSVendas</h1>
                     <p className="lead">Analise o desempenho das suas vendas por diferentes perspectivas</p>
